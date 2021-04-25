@@ -15,17 +15,6 @@ Implement error handing to the leap year program.
 
 """
 
-def verify_year(year):
-    """Check if the year is a valid format"""
-
-    if isinstance(year, int) and year > 0:
-        valid = True
-
-    else:
-        valid = False
-
-    return valid
-
 def leap_check(year):
     """Check if the inputed year is a leap year"""
     if year%4 == 0 and year%100 != 0:
@@ -42,19 +31,27 @@ def leap_check(year):
 def main():
     """Main function, does the bulk of the calculation"""
     year = input("Enter Year: ")
-    int_year = int(year)
 
-    if verify_year(int_year) is False:
-        print("You did not input a valid year")
+    # Error Handleing:
 
-    elif verify_year(int_year) is True and leap_check(int_year) is True:
+    try:
+        int_year = int(year)
+
+        if int_year <= 0:
+            print("The number must be positive.")
+            return
+            
+    except ValueError:
+        print("You must enter an integer.")
+        return
+
+    # Calculations:
+
+    if leap_check(int_year) is True:
         print(int_year, "is a leap year")
 
-    elif verify_year(int_year) is True and leap_check(int_year) is False:
+    elif leap_check(int_year) is False:
         print(int_year, "is not a leap year")
-
-
-
 
 if __name__ == '__main__':
     main()
